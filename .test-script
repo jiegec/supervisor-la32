@@ -3,7 +3,7 @@
 set timeout 15
 spawn term/term.py -t 127.0.0.1:6666
 
-expect "MONITOR for LA32R - initialized." {} timeout {exit 1}
+expect "MONITOR for LA32 - initialized." {} timeout {exit 1}
 
 expect ">>"
 send "R\n"

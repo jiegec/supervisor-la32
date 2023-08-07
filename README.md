@@ -206,7 +206,7 @@ Term 程序位于 `term` 文件夹中，可执行文件为 `term.py`。对于本
 
 以下是一次输入用户程序并运行的过程演示：
 
-	MONITOR for LA32R - initialized.
+	MONITOR for LA32 - initialized.
 	>> a
 	>>addr: 0x80100000
 	one instruction per line, empty line to end.

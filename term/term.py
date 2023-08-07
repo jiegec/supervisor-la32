@@ -308,7 +308,7 @@ def Main(welcome_message=True):
     #debug
     # welcome_message = False
     if welcome_message:
-        output_binary(inp.read(32))
+        output_binary(inp.read(31))
         print('')
     MainLoop()
 

@@ -47,7 +47,7 @@ PTESTACK:
     .section .rodata
     .p2align 2
 monitor_version:
-    .asciz "MONITOR for LA32R - initialized."
+    .asciz "MONITOR for LA32 - initialized."
 
     .section .text.init
     .p2align 2
