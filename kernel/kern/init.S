@@ -204,8 +204,17 @@ bss_init_done:
     st.w sp, t0, 0
 
 #ifdef ENABLE_INT
-    // 在 thread0(idle) 线程中允许串口中断 LIE[3]=1
-    li.w t1, 0x8
+    // 设置 PCH PIC 中断控制器（0x10000000），允许所有外部中断
+    li.w t1, 0xb0000020
+    st.w zero, t1, 0
+
+    // 设置 EXTIOI 中断控制器，允许所有外部中断
+    li.w t1, 0xffffffff
+    li.w t3, 0x1600
+    iocsrwr.w t1, t3
+
+    // 在 thread0(idle) 线程中允许串口中断 LIE[2]=1
+    li.w t1, 0x4
     st.w t1, sp, TF_ECFG
 
     // 在 thread0(idle) 线程中打开全局中断 PIE=1 且运行在特权态 PPLV=0
