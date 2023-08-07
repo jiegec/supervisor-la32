@@ -1,6 +1,6 @@
 RM	:= rm -f
 GCCPREFIX	?= loongarch32r-linux-gnusf-
-QEMU := qemu-system-loongarch32
+QEMU := qemu-system-loongarch64
 LD	:= $(GCCPREFIX)ld
 CC	:= $(GCCPREFIX)gcc
 MODULE	:= init
@@ -63,10 +63,10 @@ show-utest: $(TARGET)
 	@$(GCCPREFIX)objdump -D $< | grep "^[0-9a-f]\{8\} <UTEST_" | grep -n --color=auto 'UTEST_'
 
 sim: $(TARGET)
-	$(QEMU) -M ls3a5k32 -m 8M -kernel $< -nographic -monitor none -serial tcp::6666,server -s
+	$(QEMU) -cpu la132-loongarch-cpu -m 1G -kernel $< -nographic -monitor none -serial tcp::6666,server -s
 
 debug: $(TARGET)
-	$(QEMU) -M ls3a5k32 -m 8M -kernel $< -nographic -monitor none -serial tcp::6666,server -S -s
+	$(QEMU) -cpu la132-loongarch-cpu -m 1G -kernel $< -nographic -monitor none -serial tcp::6666,server -S -s
 
 inst: $(TARGET)
 	@$(GCCPREFIX)objdump -S $(TARGET) -M no-aliases | awk '{print $$3}' | sort | uniq | grep -v section | grep -v format
