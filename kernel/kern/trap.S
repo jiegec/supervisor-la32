@@ -213,7 +213,7 @@ TLBREFILL:
 
     // 找到虚拟页号
     // csrrd t0, CSR_TLBRBADV
-    csrrd t0, 0x8A
+    csrrd t0, 0x89
     srli.w t0, t0, 12
 
     // 去掉最低位
