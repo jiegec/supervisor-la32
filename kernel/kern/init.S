@@ -256,6 +256,11 @@ bss_init_done:
     // 清除所有 TLB 表项
     invtlb 0, zero, zero
 
+    // 设置 STLB 页面大小为 4KB
+    li.w t0, 12
+    // csrwr t0, CSR_STLBPS
+    csrwr t0, 0x1E
+
     // 填写 RAM0 页表
     la.abs a0, PTECODE
     li.w t0, PRAM0UBASE

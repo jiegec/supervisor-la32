@@ -261,8 +261,11 @@ TLBREFILL:
     csrwr t0, 0x8D
 
     // PS=12
-    li.w t0, (12 << 24)
-    csrwr t0, CSR_TLBIDX
+    // csrrd t0, CSR_TLBREHI
+    csrrd t0, 0x8E
+    ori t0, t0, 12
+    // csrwr t0, CSR_TLBREHI
+    csrwr t0, 0x8E
 
     tlbfill
     b .EXIT
