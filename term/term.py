@@ -57,7 +57,7 @@ def int_to_byte_string(val):
 def byte_string_to_int(val):
     return struct.unpack('<I', val)[0]
 
-# invoke assembler to compile instructions (in little endian loongarch 32 reduced)
+# invoke assembler to compile instructions (in little endian loongarch 32)
 # returns a byte string of encoded instructions, from lowest byte to highest byte
 # returns empty string on failure (in which case assembler messages are printed to stdout)
 def multi_line_asm(instr):
@@ -386,7 +386,7 @@ def InitializeTCP(host_port):
 if __name__ == "__main__":
     # para = '127.0.0.1:6666' if len(sys.argv) != 2 else sys.argv[1]
 
-    parser = argparse.ArgumentParser(description = 'Term for loongarch 32 reduced expirence.')
+    parser = argparse.ArgumentParser(description = 'Term for loongarch 32 expirence.')
     parser.add_argument('-c', '--continued', action='store_true', help='Term will not wait for welcome if this flag is set')
     parser.add_argument('-t', '--tcp', default=None, help='TCP server address:port for communication')
     parser.add_argument('-s', '--serial', default=None, help='Serial port name (e.g. /dev/ttyACM0, COM3)')
