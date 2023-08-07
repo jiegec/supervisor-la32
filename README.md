@@ -103,12 +103,14 @@ Kernel 的入口地址为 0x80000000，对应汇编代码 `kern/init.S` 中的 `
 1. `ertn`
 1. `syscall`
 
+代码中使用了 `iocsrwr.w` 指令来控制 EXTIOI 中断控制器，如果没有实现该中断控制器，可以把该指令实现为 NOP。
+
 此外还需要实现 CSR 寄存器的部分字段：
 
 1. CSR.EENTRY：异常入口地址
 2. CSR.ESTAT：Ecode（异常类型）
 3. CSR.ERA：异常返回地址
-4. CSR.ECFG：LIE（使能串口中断，LIE[3]，复位值为 0）
+4. CSR.ECFG：LIE（使能串口中断，LIE[2]，复位值为 0）
 5. CSR.PRMD：PIE
 6. CSR.CRMD：IE（全局中断使能，复位值为 0）
 7. CSR.SAVE0
@@ -119,8 +121,8 @@ CSR 寄存器字段功能定义参见 LoongArch 32 特权态规范（在参考�
 
 监控程序实现了简单的线程调度，系统中只有两个线程：
 
-1. thread0：idle，响应串口中断（CSR.CRMD.IE=1，CSR.ECFG.LIE[3]=1）
-2. thread1：user/shell，不响应中断（CSR.CRMD.IE=0，CSR.ECFG.LIE[3]=0）
+1. thread0：idle，响应串口中断（CSR.CRMD.IE=1，CSR.ECFG.LIE[2]=1）
+2. thread1：user/shell，不响应中断（CSR.CRMD.IE=0，CSR.ECFG.LIE[2]=0）
 
 启动时，监控程序会运行 thread1。thread1 会尝试从串口读取数据，如果发现没有数据可以读取，就会调用 wait 系统调用，此时监控程序会调度到 thread0。thread0 打开了串口中断，因此当串口上有数据可以读取的时候，监控程序会响应中断，调度到 thread1，thread1 就可以从串口读取数据。
 
@@ -153,6 +155,11 @@ CPU 要额外实现以下指令
 4. CSR.BADV
 5. CSR.TLBELO0
 6. CSR.TLBELO1
+7. CSR.STLBPS
+8. CSR.TLBREHI
+9. CSR.TLBRBADV
+10. CSR.TLBRELO0
+11. CSR.TLBRELO1
 
 以及 TLB Refill 异常，其中 Refill 异常入口地址为 TLBREFILL，与其它异常的入口地址不同。
 
