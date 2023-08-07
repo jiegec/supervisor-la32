@@ -212,7 +212,8 @@ TLBREFILL:
     csrwr t1, CSR_SAVE1
 
     // 找到虚拟页号
-    csrrd t0, CSR_BADV
+    // csrrd t0, CSR_TLBRBADV
+    csrrd t0, 0x8A
     srli.w t0, t0, 12
 
     // 去掉最低位
@@ -251,11 +252,13 @@ TLBREFILL:
 
     // EntryLo0
     ld.w t0, t1, 0
-    csrwr t0, CSR_TLBELO0
+    // csrwr t0, CSR_TLBRELO0
+    csrwr t0, 0x8C
 
     // EntryLo1
     ld.w t0, t1, 4
-    csrwr t0, CSR_TLBELO1
+    // csrwr t0, CSR_TLBRELO1
+    csrwr t0, 0x8D
 
     // PS=12
     li.w t0, (12 << 24)
