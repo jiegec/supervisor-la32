@@ -296,7 +296,7 @@ Term 程序位于 `term` 文件夹中，可执行文件为 `term.py`。对于本
 
 ## 参考文献
 
-- [LoongArch 32 Reduced 指令集标准](https://www.loongson.cn/uploads/images/2023041918122813624.%E9%BE%99%E8%8A%AF%E6%9E%B6%E6%9E%8432%E4%BD%8D%E7%B2%BE%E7%AE%80%E7%89%88%E5%8F%82%E8%80%83%E6%89%8B%E5%86%8C_r1p03.pdf)
+- [LoongArch 32 指令集标准](https://www.loongson.cn/uploads/images/2023041918133323805.%E9%BE%99%E8%8A%AF%E6%9E%B6%E6%9E%84%E5%8F%82%E8%80%83%E6%89%8B%E5%86%8C%E5%8D%B7%E4%B8%80_r1p03.pdf)
 
 ## 项目作者
 
