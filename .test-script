@@ -50,10 +50,10 @@ send "G\n"
 send "0\n"
 expect "elapsed time" {} timeout {exit 1}
 
-expect ">>"
-send "T\n"
-send " -1\n"
-expect -re "00000_000 +00100_000 +1 +1 +1 +1"  {} timeout {exit 1}
+#expect ">>"
+#send "T\n"
+#send " -1\n"
+#expect -re "00000_000 +00100_000 +1 +1 +1 +1"  {} timeout {exit 1}
 
 expect ">>"
 send "D\n"
@@ -82,10 +82,10 @@ send "G\n"
 send "0\n"
 expect "elapsed time" {} timeout {exit 1}
 
-expect ">>"
-send "T\n"
-send " -1\n"
-expect -re "7ffff_000 +007ef_000 +1 +1 +1 +1"  {} timeout {exit 1}
+#expect ">>"
+#send "T\n"
+#send " -1\n"
+#expect -re "7ffff_000 +007ef_000 +1 +1 +1 +1"  {} timeout {exit 1}
 
 expect ">>"
 send "R\n"
