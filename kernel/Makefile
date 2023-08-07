@@ -62,11 +62,11 @@ kernel.bin: $(TARGET)
 show-utest: $(TARGET)
 	@$(GCCPREFIX)objdump -D $< | grep "^[0-9a-f]\{8\} <UTEST_" | grep -n --color=auto 'UTEST_'
 
-sim: $(TARGET)
-	$(QEMU) -cpu la132-loongarch-cpu -m 1G -kernel $< -nographic -monitor none -serial tcp::6666,server -s
+sim: kernel.bin
+	$(QEMU) -cpu la132-loongarch-cpu -m 1G -device loader,file=$<,addr=0x00000000 -nographic -monitor none -serial tcp::6666,server -s
 
-debug: $(TARGET)
-	$(QEMU) -cpu la132-loongarch-cpu -m 1G -kernel $< -nographic -monitor none -serial tcp::6666,server -S -s
+debug: kernel.bin
+	$(QEMU) -cpu la132-loongarch-cpu -m 1G -device loader,file=$<,addr=0x00000000 -nographic -monitor none -serial tcp::6666,server -S -s
 
 inst: $(TARGET)
 	@$(GCCPREFIX)objdump -S $(TARGET) -M no-aliases | awk '{print $$3}' | sort | uniq | grep -v section | grep -v format
