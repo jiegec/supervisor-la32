@@ -1,6 +1,6 @@
 ENTRY(START)
 OUTPUT("kernel.elf")
-OUTPUT_ARCH("loongarch32r")
+OUTPUT_ARCH("loongarch32")
 OUTPUT_FORMAT("elf32-loongarch")
 
 /* Qemu serial constants */

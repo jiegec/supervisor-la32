@@ -22,7 +22,7 @@ except:
 try: type(raw_input)
 except NameError: raw_input = input
 
-CCPREFIX = "loongarch32r-linux-gnusf-"
+CCPREFIX = "loongarch32-unknown-linux-gnu-"
 if 'GCCPREFIX' in os.environ:
     CCPREFIX=os.environ['GCCPREFIX']
 CMD_ASSEMBLER = CCPREFIX + 'as'
@@ -71,7 +71,7 @@ def multi_line_asm(instr):
         tmp_obj.close()
         tmp_binary.close()
         subprocess.check_output([
-            CMD_ASSEMBLER, '-mabi=ilp32', tmp_asm.name, '-o', tmp_obj.name])
+            CMD_ASSEMBLER, '-mabi=ilp32d', tmp_asm.name, '-o', tmp_obj.name])
         subprocess.check_call([
             CMD_BINARY_COPY, '-j', '.text', '-O', 'binary', tmp_obj.name, tmp_binary.name])
         with open(tmp_binary.name, 'rb') as f:
@@ -102,7 +102,7 @@ def single_line_disassmble(binary_instr, addr):
     raw_output = subprocess.check_output([
         CMD_DISASSEMBLER, '-D', '-b', 'binary',
         '--adjust-vma=' + str(addr),
-        '-m', 'loongarch32r', tmp_binary.name])
+        '-m', 'loongarch32', tmp_binary.name])
     # the last line should be something like:
     #    0:   21107f00        addu    v0,v1,ra
     result = raw_output.strip().split(b'\n')[-1].split(None, 2)[-1]

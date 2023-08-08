@@ -1,5 +1,5 @@
 RM	:= rm -f
-GCCPREFIX	?= loongarch32r-linux-gnusf-
+GCCPREFIX	?= loongarch32-unknown-linux-gnu-
 QEMU := qemu-system-loongarch64
 LD	:= $(GCCPREFIX)ld
 CC	:= $(GCCPREFIX)gcc
@@ -48,7 +48,7 @@ $(TARGET): checkdirs $(OBJ) $(LDSCRIPT)
 	$(LD) $(OBJ) -T$(LDSCRIPT)
 
 $(OBJ): $(OBJDIR)/%.o : $(SRCDIR)/%.S $(CONFIG_FILE)
-	$(CC) -o $@ $< -c -I$(INCLUDE) $(ASFLAG)
+	$(CC) -g -o $@ $< -c -I$(INCLUDE) $(ASFLAG)
 
 
 checkdirs: $(OBJDIR)
@@ -63,10 +63,10 @@ show-utest: $(TARGET)
 	@$(GCCPREFIX)objdump -D $< | grep "^[0-9a-f]\{8\} <UTEST_" | grep -n --color=auto 'UTEST_'
 
 sim: kernel.bin
-	$(QEMU) -cpu la132-loongarch-cpu -m 1G -device loader,file=$<,addr=0x00000000 -nographic -monitor none -serial tcp::6666,server -s
+	$(QEMU) -cpu la132-loongarch-cpu -m 1G -bios $< -nographic -monitor none -serial tcp::6666,server -s
 
 debug: kernel.bin
-	$(QEMU) -cpu la132-loongarch-cpu -m 1G -device loader,file=$<,addr=0x00000000 -nographic -monitor none -serial tcp::6666,server -S -s
+	$(QEMU) -cpu la132-loongarch-cpu -m 1G -bios $< -nographic -monitor none -serial tcp::6666,server -S -s
 
 inst: $(TARGET)
 	@$(GCCPREFIX)objdump -S $(TARGET) -M no-aliases | awk '{print $$3}' | sort | uniq | grep -v section | grep -v format
